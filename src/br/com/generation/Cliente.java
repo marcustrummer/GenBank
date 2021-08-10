@@ -60,7 +60,7 @@ public class Cliente {
 		if(valorAInvestir > saldo) {
 			System.out.println("Valor acima do seu saldo...Operacao nao realizada!");
 		}else {
-			saldo = saldo - valorAInvestir;
+			this.saldo = saldo - valorAInvestir;
 			valorInvestido = valorAInvestir;
 			System.out.println("Obrigado por investir conosco! :) ");
 			System.out.println("Seu dinheiro valera: R$ " + df.format((valorInvestido*5.75)) + " em agosto de 2022  (melhor que a nubank hein rs)");
@@ -94,7 +94,7 @@ public class Cliente {
 				
 			}else{
 			emprestimoDisponivel = emprestimoDisponivel - valorSolicitado;
-			saldo = saldo + valorSolicitado;
+			this.saldo = saldo + valorSolicitado;
 			System.out.println("Emprestimo concedido com sucesso!!! Valor a pagar: R$" + Math.round(valorSolicitado*taxaGen)+ ",00");
 			System.out.println("Voce tem ate 2023 para nao ir pro serada rs");
 			}
@@ -106,9 +106,8 @@ public class Cliente {
 		double valorDeposito=0;
 		System.out.println("Digite o valor do deposito: ");
 		valorDeposito = entrada.nextDouble();
-		saldo = saldo + valorDeposito;
+		this.saldo = saldo + valorDeposito;
 		System.out.println("Deposito realizado!");
-		System.out.println(saldo);
 	}
 	
 	
@@ -116,7 +115,7 @@ public class Cliente {
 	
 	
 	public void mostraSaldo() {
-		System.out.println("Seu saldo eh : " + saldo);
+		System.out.println("Seu saldo eh : " + df.format(saldo));
 	}
 	
 	public void sacar(double saldo) {
@@ -133,21 +132,62 @@ public class Cliente {
 		if(saldo < valorSaque) {
 			System.out.println("Saque nao autorizado!! Tas liso ?");
 		}else if(verifica.equals("s")) {
-				saldo = saldo - valorSaque;
+				this.saldo = saldo - valorSaque;
 			    System.out.println("Saque concluido!");
-			    System.out.println("Saldo atualizado: " + saldo);
+			    System.out.println("Saldo atualizado: " + this.saldo);
 			    }else{
 			      System.out.println("Operacao cancelada.");
 			      }
 		}
+	public static void menu(Cliente cliente1) {
+		Scanner entrada = new Scanner(System.in);
+		int verifica =0;
+		do{
+			System.out.println("Digite a opcao desejada");
+			System.out.println("1 --> Saque");
+			System.out.println("2 --> Saldo");
+			System.out.println("3 --> Deposito");
+			System.out.println("4 --> Emprestimo");
+			System.out.println("5 --> GenInvest");
+			verifica = entrada.nextInt();
+			System.out.println();
+			
+			switch(verifica) {
+			case 1:
+				cliente1.sacar(cliente1.getSaldo());
+				break;
+			case 2:
+				cliente1.mostraSaldo();
+			    break;
+			case 3: 
+				cliente1.depositar(cliente1.getSaldo());
+		  	    break;
+			case 4:
+				cliente1.emprestimo(cliente1.getRenda());
+				break;
+			case 5:
+				cliente1.genInvest(cliente1.getSaldo());
+			default:
+	            System.out.println("Opcao invalida ");         // REVISAR ESSA OPCAO AQUI
+	            break;
+			}
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			for(int i=0;i<60;i++) {System.out.println(" ");}
+			}while(verifica != 0);
+		entrada.close();
+	}
+	
 	
 	
 	
 	public static void login(String cpf, String senha, String cpfDigitado, String senhaDigitada) {
-		//System.out.println(senhaDigitada);
 	
 		if(cpfDigitado.equals(cpf) || senhaDigitada.equals(senha)) {
-			 System.out.println("Cpf e senhas corretos iniciando menu principal...");
+			 System.out.println("Cpf e senhas corretos iniciando Menu principal...");
 		}
 		else {
 			System.out.println("cpf ou senha invalida");
