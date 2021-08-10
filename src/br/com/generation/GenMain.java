@@ -19,13 +19,13 @@ public class GenMain extends Cliente{
 		cliente1.setCpf("123");
 		cliente1.setSaldo(0.99);
 		cliente1.setRenda(60000);
-		//cliente1.setValorInvestido(0.0);
+		cliente1.setValorInvestido(0.0);
 
-		//System.out.println("Digite seu cpf");
-		//cpfDigitado = entrada.next();
-	    //System.out.println("Digite sua senha");
-		//senhaDigitada = entrada.next();
-		//login(cpfDigitado, senhaDigitada, cliente1.getCpf(), cliente1.getSenha());
+		System.out.println("Digite seu cpf");
+		cpfDigitado = entrada.next();
+	    System.out.println("Digite sua senha");
+		senhaDigitada = entrada.next();
+		login(cpfDigitado, senhaDigitada, cliente1.getCpf(), cliente1.getSenha());
 		
 		do{
 			System.out.println("Digite a opcao desejada");
@@ -34,23 +34,36 @@ public class GenMain extends Cliente{
 			System.out.println("3 --> Deposito");
 			System.out.println("4 --> Emprestimo");
 			System.out.println("5 --> GenInvest");
+			verifica = entrada.nextInt();
 			
-			
-				verifica = entrada.nextInt();
-			}while(verifica < 1 || verifica > 4);
-		switch(verifica) {
-		case 1:
-			cliente1.sacar(cliente1.getSaldo());
-			break;
-		case 2:
-			cliente1.mostraSaldo();
-		    break;
-		case 3: 
-			cliente1.depositar(cliente1.getSaldo());
-	  	    break;
-		case 4:
-			cliente1.emprestimo(cliente1.getRenda());
-		}
+			switch(verifica) {
+			case 1:
+				cliente1.sacar(cliente1.getSaldo());
+				break;
+			case 2:
+				cliente1.mostraSaldo();
+			    break;
+			case 3: 
+				cliente1.depositar(cliente1.getSaldo());
+		  	    break;
+			case 4:
+				cliente1.emprestimo(cliente1.getRenda());
+				break;
+			case 5:
+				cliente1.genInvest(cliente1.getSaldo());
+			default:
+                System.out.println("Opcao invalida ");         // REVISAR ESSA OPCAO AQUI
+                break;
+			}
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			for(int i=0;i<60;i++) {System.out.println(" ");}
+			}while(verifica != 0);
+		
 		
 		entrada.close();
 		

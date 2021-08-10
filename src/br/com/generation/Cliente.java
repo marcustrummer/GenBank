@@ -2,9 +2,11 @@ package br.com.generation;
 
 import java.util.Scanner;
 import java.lang.Math;
+import java.text.DecimalFormat;
 public class Cliente {
 	
 	Scanner entrada = new Scanner(System.in);
+	DecimalFormat df = new DecimalFormat("###.##");
 	
 	private String nome;
 	private String sobrenome;
@@ -12,6 +14,7 @@ public class Cliente {
 	private String senha;
 	private double saldo;
 	private double renda;
+	private double valorInvestido;
 	
 	
 	
@@ -46,6 +49,27 @@ public class Cliente {
 		this.saldo = saldo;
 	}
 	//-----------------------------------------------------------------------------------GETTERS AND SETTERS
+	
+	public void genInvest(double saldo) {
+		double investimento=5.76;
+		double valorAInvestir = 0;
+		System.out.println("Bem vindo ao Centro de Investimentos Generation");
+		System.out.println("Aqui seu saldo rende : " + investimento + "% do CDI ao ano!!!");
+		System.out.println("Quanto gostaria de investir?");
+		valorAInvestir = entrada.nextDouble();
+		if(valorAInvestir > saldo) {
+			System.out.println("Valor acima do seu saldo...Operacao nao realizada!");
+		}else {
+			saldo = saldo - valorAInvestir;
+			valorInvestido = valorAInvestir;
+			System.out.println("Obrigado por investir conosco! :) ");
+			System.out.println("Seu dinheiro valera: R$ " + df.format((valorInvestido*5.75)) + " em agosto de 2022  (melhor que a nubank hein rs)");
+		}
+		
+		
+	}
+	
+	
 	
 	public void emprestimo(double renda) {
 		double emprestimoDisponivel =0;
@@ -134,5 +158,11 @@ public class Cliente {
 	}
 	public void setRenda(double renda) {
 		this.renda = renda;
+	}
+	public double getValorInvestido() {
+		return valorInvestido;
+	}
+	public void setValorInvestido(double valorInvestido) {
+		this.valorInvestido = valorInvestido;
 	}
 }
