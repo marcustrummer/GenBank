@@ -18,26 +18,26 @@ public class GenMain extends Cliente{
 		cliente1.setSenha("12345");
 		cliente1.setCpf("123");
 		cliente1.setSaldo(0.99);
-		
+		cliente1.setRenda(60000);
+		//cliente1.setValorInvestido(0.0);
 
-		System.out.println("Digite seu cpf");
-		cpfDigitado = entrada.next();
-	    System.out.println("Digite sua senha");
-		senhaDigitada = entrada.next();
-		login(cpfDigitado, senhaDigitada, cliente1.getCpf(), cliente1.getSenha());
+		//System.out.println("Digite seu cpf");
+		//cpfDigitado = entrada.next();
+	    //System.out.println("Digite sua senha");
+		//senhaDigitada = entrada.next();
+		//login(cpfDigitado, senhaDigitada, cliente1.getCpf(), cliente1.getSenha());
 		
-		System.out.println("Digite a opcao desejada:");
-		System.out.println("1 --> Saque");
-		System.out.println("2 --> Saldo");
-		System.out.println("3 --> Pix");
-		verifica = entrada.nextInt();
-		while(verifica < 1 || verifica > 3) {
-			System.out.println("opcao invalida, digite uma opcao valida");
+		do{
+			System.out.println("Digite a opcao desejada");
 			System.out.println("1 --> Saque");
 			System.out.println("2 --> Saldo");
-			System.out.println("3 --> Pix");
+			System.out.println("3 --> Deposito");
+			System.out.println("4 --> Emprestimo");
+			System.out.println("5 --> GenInvest");
+			
+			
 				verifica = entrada.nextInt();
-			}
+			}while(verifica < 1 || verifica > 4);
 		switch(verifica) {
 		case 1:
 			cliente1.sacar(cliente1.getSaldo());
@@ -45,10 +45,13 @@ public class GenMain extends Cliente{
 		case 2:
 			cliente1.mostraSaldo();
 		    break;
-		//case 3: 
-			//cliente1.depositar(cliente1.getSaldo());
-		//	break;
+		case 3: 
+			cliente1.depositar(cliente1.getSaldo());
+	  	    break;
+		case 4:
+			cliente1.emprestimo(cliente1.getRenda());
 		}
+		
 		entrada.close();
 		
 	}
