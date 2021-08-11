@@ -76,15 +76,15 @@ public class GenMain extends Cliente{
 		cliente1.setSaldo(valorDepositado);
 
 		} while( valorDepositado < 0 && valorDepositado > 10000);
-		
+		for(int i=0; i<30; i++) {System.out.println("");}
 		
 		System.out.println("Falta pouco...");
 		
 		
 		do {
-			System.out.println("============================================================");
-			System.out.println("||         Nos informe sua renda anual                    ||");
-			System.out.println("============================================================");
+
+			System.out.println("Nos informe sua renda anual: ");
+
 		renda = entrada.nextDouble();
 		cliente1.setRenda(renda);
 		}while(renda < 0);

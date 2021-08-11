@@ -69,12 +69,14 @@ public class Cliente{
 		Scanner entrada = new Scanner(System.in);
 		int verifica =0;
 		do{
-			System.out.println("Digite a opcao desejada");
-			System.out.println("1 --> Saque");
-			System.out.println("2 --> Saldo");
-			System.out.println("3 --> Deposito");
-			System.out.println("4 --> Emprestimo");
-			System.out.println("5 --> GenInvest");
+			System.out.println("============================================================");
+			System.out.println("|| Digite a opção desejada:                               ||");
+			System.out.println("|| [1] --> Saque                                          ||");
+			System.out.println("|| [2] --> Saldo                                          ||");
+			System.out.println("|| [3] --> Depósito                                       ||");
+			System.out.println("|| [4] --> Empréstimo                                     ||");
+			System.out.println("|| [5] --> GenInvest                                      ||");
+			System.out.println("============================================================");
 			verifica = entrada.nextInt();
 			System.out.println();
 			
@@ -82,7 +84,7 @@ public class Cliente{
 			case 1:
 				if(saques<3) {
 				cliente1.sacar(cliente1.getSaldo());
-				}else {System.out.println("Limite de saques atingido! Tente novamente amanha..");
+				}else {System.out.println("Limite de saques atingido! Tente novamente amanhã..");
 				}
 				break;
 			case 2:
@@ -97,9 +99,6 @@ public class Cliente{
 			case 5:
 				cliente1.genInvest(cliente1.getSaldo());
 				break;
-			default:
-	            System.out.println("Opcao invalida ");         // REVISAR ESSA OPCAO AQUI
-	            break;
 			}
 			try {
 				Thread.sleep(3000);
@@ -109,36 +108,39 @@ public class Cliente{
 			}
 			for(int i=0;i<60;i++) {System.out.println(" ");}
 			}while(verifica != 0);
-		System.out.println("Obrigado por usar o GenBank, volte sempre :)");
-		// INFORMAR TODOS OS DADOS SALVOS PARA CARATER DIDATICO!!!
+		System.out.println("============================================================");
+		System.out.println("||     Obrigado por usar o GenBank, volte sempre! :)      ||");
+		System.out.println("============================================================");
 		
 	}
 	
 	public void sacar(double saldo) {
 		double valorSaque;         // DECLARAO DE VARIAVEIS
-		String verifica = "";
+		int verifica = 0;
 		
 		
 		System.out.println("Digite o valor do saque: ");
 		valorSaque = entrada.nextDouble();
 		System.out.println("Confirma valor do saque: " + valorSaque);
-		System.out.println("s/n");
-		verifica = entrada.next();
+		System.out.println("[1-Sim]           [2-Não]");
+		verifica = entrada.nextInt();
 		
 		if(saldo < valorSaque) {
-			System.out.println("Saque nao autorizado!! Realize um deposito, por favor!");
-		}else if(verifica.equals("s")) {
+			System.out.println("Saque não autorizado!! Realize um depósito, por favor!");
+		}else if(verifica == 1) {
 				this.saldo = saldo - valorSaque;
 				this.saques = saques+1; 
-			    System.out.println("Saque concluido!");
+			    System.out.println("Saque concluído!");
 			    System.out.println("Saldo atualizado: " + this.saldo);
 			    }else{
-			      System.out.println("Operacao cancelada.");
+			      System.out.println("Operação cancelada.");
 			      }
 	}
 	
 	public  void mostraSaldo(double saldo) {
-		System.out.println("Seu saldo eh : " + df.format(saldo));
+		System.out.println("============================================================");
+		System.out.println("||                 Saldo disponível: "+ df.format(saldo) + "                  ||");
+		System.out.println("============================================================");
 		
 	}
 	
@@ -148,26 +150,28 @@ public class Cliente{
 		
 		double taxaGen = 1.1788;
 		double valorSolicitado=0;
-		String resposta = "";
+		int resposta = 0;
+		
+		System.out.println("============================================================");
+		System.out.println("||        Você deseja realizar um empréstimo?             ||");
+		System.out.println("||         [1-Sim]                   [2-Não]              ||");
+		System.out.println("============================================================");
+		resposta = entrada.nextInt();
 		
 		
-		System.out.println("Voce deseja realizar um emprestimo?  s/n");
-		resposta = entrada.next();
-		
-		
-		if(resposta.equals("s")) {
-			System.out.println("Nos disponibilizamos um emprestimo de ate: " + emprestimoDisponivel);
-			System.out.println("Nos cobramos uma taxa risoria de apenas: " + (taxaGen+16.7012) + "% para emprestimo pessoa fisica\n");
-			System.out.println("Digite o valor que deseja realizar: ");
+		if(resposta==1) {
+			System.out.println("Disponibilizamos um empréstimo de até: R$ " + emprestimoDisponivel);
+			System.out.println("Cobramos uma taxa de: " + (taxaGen+16.7012) + "% para pessoa física\n");
+			System.out.println("Digite o valor que deseja: ");
 			valorSolicitado = entrada.nextDouble();
 			if(valorSolicitado > emprestimoDisponivel) {
-				System.out.println("Valor acima do limite disponivel");
+				System.out.println("Valor acima do limite disponível.");
 				
 			}else{
 			emprestimoDisponivel = emprestimoDisponivel - valorSolicitado;
 			this.saldo = saldo + valorSolicitado;
-			System.out.println("Emprestimo concedido com sucesso!!! Valor a pagar: R$" + Math.round(valorSolicitado*taxaGen)+ ",00");
-			System.out.println("Voce tem ate 2023 para nao ir pro serada rs");
+			System.out.println("Empréstimo concedido com sucesso!!! Valor a pagar: R$" + Math.round(valorSolicitado*taxaGen)+ ",00");
+			System.out.println("Data limite de pagamento: 12 de Agosto de 2022" );
 			}
 		}	
 	}
@@ -180,26 +184,32 @@ public class Cliente{
 	
 	public void depositar(double saldo) {
 		double valorDeposito=0;
-		System.out.println("Digite o valor do deposito: ");
+		System.out.println("============================================================");
+		System.out.println("||              Digite o valor do depósito:               ||");
+		System.out.println("============================================================");
 		valorDeposito = entrada.nextDouble();
 		this.saldo = saldo + valorDeposito;
-		System.out.println("Deposito realizado!");
+		System.out.println("Depósito realizado!");
 	}
 	
 	protected void genInvest(double saldo) {
 		double investimento=5.76;
 		double valorAInvestir = 0;
-		System.out.println("Bem vindo ao Centro de Investimentos Generation");
-		System.out.println("Aqui seu saldo rende : " + investimento + "% do CDI ao ano!!!");
+		System.out.println("============================================================");
+		System.out.println("||    Bem vindo ao Centro de Investimentos Generation     ||");
+		System.out.println("============================================================");
+		System.out.println("\n");
+		System.out.println("Aqui seu saldo rende : " + investimento + "% do CDI ao ano.");
+		
 		System.out.println("Quanto gostaria de investir?");
 		valorAInvestir = entrada.nextDouble();
 		if(valorAInvestir > saldo) {
-			System.out.println("Valor acima do seu saldo...Operacao nao realizada!");
+			System.out.println("Valor acima do seu saldo...Operação não realizada!");
 		}else {
 			this.saldo = saldo - valorAInvestir;
 			valorInvestido = valorAInvestir;
 			System.out.println("Obrigado por investir conosco! :) ");
-			System.out.println("Seu dinheiro valera: R$ " + df.format((valorInvestido*5.75)) + " em agosto de 2022  (melhor que a nubank hein rs)");
+			System.out.println("Seu dinheiro vai render: R$ " + df.format((valorInvestido*5.75)) + " até agosto de 2022");
 		}
 		
 		
@@ -213,15 +223,16 @@ public class Cliente{
 		String senhaDigitada = " ";
 		int c=0;
 		do {
+
 			System.out.println("Digite o seu CPF, por favor.");
 			cpfDigitado = entrada.nextLine();
 			System.out.println("Digite sua senha , por favor.");
 			senhaDigitada = entrada.nextLine();
 			if(cpfDigitado.equals(cpf) && senhaDigitada.equals(senha)) {
-				 System.out.println("Cpf e senhas corretos iniciando Funcoes do Banco principal...");
+				 System.out.println("CPF e senhas corretos iniciando funções do banco principal...");
 				 c++;
 			}else{
-				System.out.println("Cpf ou senha invalida, tente novamente!!");
+				System.out.println("CPF ou senha inválida, tente novamente!!");
 				}
 			
 			
