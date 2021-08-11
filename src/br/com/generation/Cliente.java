@@ -96,9 +96,10 @@ public class Cliente{
 				break;
 			case 5:
 				cliente1.genInvest(cliente1.getSaldo());
-			/*default:
+				break;
+			default:
 	            System.out.println("Opcao invalida ");         // REVISAR ESSA OPCAO AQUI
-	            break;*/
+	            break;
 			}
 			try {
 				Thread.sleep(3000);
@@ -210,16 +211,28 @@ public class Cliente{
 		Scanner entrada = new Scanner(System.in);
 		String cpfDigitado = " ";    // Para o eu esquecido, cpfDigitado e senha NAO EH IGUAL AO CPFDIG E SENHA DO MAIN
 		String senhaDigitada = " ";
-		System.out.println("Digite o seu CPF, por favor.");
-		cpfDigitado = entrada.nextLine();
-		System.out.println("Digite sua senha , por favor.");
-		senhaDigitada = entrada.nextLine();
-		if(cpfDigitado.equals(cpf) || senhaDigitada.equals(senha)) {
-			 System.out.println("Cpf e senhas corretos iniciando FuncoesdoBanco principal...");
-		}
-		else {
-			System.out.println("cpf ou senha invalida");
-		}
+		int c=0;
+		do {
+			System.out.println("Digite o seu CPF, por favor.");
+			cpfDigitado = entrada.nextLine();
+			System.out.println("Digite sua senha , por favor.");
+			senhaDigitada = entrada.nextLine();
+			if(cpfDigitado.equals(cpf) && senhaDigitada.equals(senha)) {
+				 System.out.println("Cpf e senhas corretos iniciando Funcoes do Banco principal...");
+				 c++;
+			}else{
+				System.out.println("Cpf ou senha invalida, tente novamente!!");
+				}
+			
+			
+			try {   
+				Thread.sleep(2000);// ----------------------TEMPO PARA LEITURA -----------------------------------------------------
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			for(int i=0;i<60;i++) {System.out.println("");}//---------------------LIMPANDO TELA PARA DIGITAR NOVAMENTE-------------------------------
+		}while(c != 1);
+		
 	}
 
 }
