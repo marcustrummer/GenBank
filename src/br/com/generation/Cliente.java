@@ -3,18 +3,20 @@ package br.com.generation;
 import java.util.Scanner;
 import java.lang.Math;
 import java.text.DecimalFormat;
-public class Cliente {
+public class Cliente{
 	
 	Scanner entrada = new Scanner(System.in);
-	DecimalFormat df = new DecimalFormat("###.##");
+	static DecimalFormat df = new DecimalFormat("###.##");
 	
+	private static int saques=0;
 	private String nome;
 	private String sobrenome;
 	private String cpf;
-	private String senha;
+	static String senha;
 	private double saldo;
 	private double renda;
 	private double valorInvestido;
+	
 	
 	
 	
@@ -48,28 +50,96 @@ public class Cliente {
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
-	//-----------------------------------------------------------------------------------GETTERS AND SETTERS
+	public double getRenda() {
+		return renda;
+	}
+	public void setRenda(double renda) {
+		this.renda = renda;
+	}
+	public double getValorInvestido() {
+		return valorInvestido;
+	}
+	public void setValorInvestido(double valorInvestido) {
+		this.valorInvestido = valorInvestido;
+	}
+	//-----------------------------------------------------------------------------------GETTERS AND SETTERS ------------------------------------------------------------------
 	
-	public void genInvest(double saldo) {
-		double investimento=5.76;
-		double valorAInvestir = 0;
-		System.out.println("Bem vindo ao Centro de Investimentos Generation");
-		System.out.println("Aqui seu saldo rende : " + investimento + "% do CDI ao ano!!!");
-		System.out.println("Quanto gostaria de investir?");
-		valorAInvestir = entrada.nextDouble();
-		if(valorAInvestir > saldo) {
-			System.out.println("Valor acima do seu saldo...Operacao nao realizada!");
-		}else {
-			this.saldo = saldo - valorAInvestir;
-			valorInvestido = valorAInvestir;
-			System.out.println("Obrigado por investir conosco! :) ");
-			System.out.println("Seu dinheiro valera: R$ " + df.format((valorInvestido*5.75)) + " em agosto de 2022  (melhor que a nubank hein rs)");
-		}
-		
+	
+	public static void menu(Cliente cliente1) {
+		Scanner entrada = new Scanner(System.in);
+		int verifica =0;
+		do{
+			System.out.println("Digite a opcao desejada");
+			System.out.println("1 --> Saque");
+			System.out.println("2 --> Saldo");
+			System.out.println("3 --> Deposito");
+			System.out.println("4 --> Emprestimo");
+			System.out.println("5 --> GenInvest");
+			verifica = entrada.nextInt();
+			System.out.println();
+			
+			switch(verifica) {
+			case 1:
+				if(saques<3) {
+				cliente1.sacar(cliente1.getSaldo());
+				}else {System.out.println("Limite de saques atingido! Tente novamente amanha..");
+				}
+				break;
+			case 2:
+				cliente1.mostraSaldo(cliente1.getSaldo());
+			    break;
+			case 3: 
+				cliente1.depositar(cliente1.getSaldo());
+		  	    break;
+			case 4:
+				cliente1.emprestimo(cliente1.getRenda());
+				break;
+			case 5:
+				cliente1.genInvest(cliente1.getSaldo());
+			/*default:
+	            System.out.println("Opcao invalida ");         // REVISAR ESSA OPCAO AQUI
+	            break;*/
+			}
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			for(int i=0;i<60;i++) {System.out.println(" ");}
+			}while(verifica != 0);
+		System.out.println("Obrigado por usar o GenBank, volte sempre :)");
+		// INFORMAR TODOS OS DADOS SALVOS PARA CARATER DIDATICO!!!
 		
 	}
 	
+	public void sacar(double saldo) {
+		double valorSaque;         // DECLARAO DE VARIAVEIS
+		String verifica = "";
+		
+		
+		System.out.println("Digite o valor do saque: ");
+		valorSaque = entrada.nextDouble();
+		System.out.println("Confirma valor do saque: " + valorSaque);
+		System.out.println("s/n");
+		verifica = entrada.next();
+		
+		if(saldo < valorSaque) {
+			System.out.println("Saque nao autorizado!! Realize um deposito, por favor!");
+		}else if(verifica.equals("s")) {
+				this.saldo = saldo - valorSaque;
+				this.saques = saques+1; 
+			    System.out.println("Saque concluido!");
+			    System.out.println("Saldo atualizado: " + this.saldo);
+			    }else{
+			      System.out.println("Operacao cancelada.");
+			      }
+	}
 	
+	public  void mostraSaldo(double saldo) {
+		System.out.println("Seu saldo eh : " + df.format(saldo));
+		
+	}
 	
 	public void emprestimo(double renda) {
 		double emprestimoDisponivel =0;
@@ -102,6 +172,11 @@ public class Cliente {
 	}
 	
 	
+	
+	
+
+	
+	
 	public void depositar(double saldo) {
 		double valorDeposito=0;
 		System.out.println("Digite o valor do deposito: ");
@@ -110,99 +185,41 @@ public class Cliente {
 		System.out.println("Deposito realizado!");
 	}
 	
-	
-	
-	
-	
-	public void mostraSaldo() {
-		System.out.println("Seu saldo eh : " + df.format(saldo));
-	}
-	
-	public void sacar(double saldo) {
-		double valorSaque;         // DECLARAO DE VARIAVEIS
-		String verifica = "";
-		
-		
-		System.out.println("Digite o valor do saque: ");
-		valorSaque = entrada.nextDouble();
-		System.out.println("Confirma valor do saque: " + valorSaque);
-		System.out.println("s/n");
-		verifica = entrada.next();
-		
-		if(saldo < valorSaque) {
-			System.out.println("Saque nao autorizado!! Tas liso ?");
-		}else if(verifica.equals("s")) {
-				this.saldo = saldo - valorSaque;
-			    System.out.println("Saque concluido!");
-			    System.out.println("Saldo atualizado: " + this.saldo);
-			    }else{
-			      System.out.println("Operacao cancelada.");
-			      }
+	protected void genInvest(double saldo) {
+		double investimento=5.76;
+		double valorAInvestir = 0;
+		System.out.println("Bem vindo ao Centro de Investimentos Generation");
+		System.out.println("Aqui seu saldo rende : " + investimento + "% do CDI ao ano!!!");
+		System.out.println("Quanto gostaria de investir?");
+		valorAInvestir = entrada.nextDouble();
+		if(valorAInvestir > saldo) {
+			System.out.println("Valor acima do seu saldo...Operacao nao realizada!");
+		}else {
+			this.saldo = saldo - valorAInvestir;
+			valorInvestido = valorAInvestir;
+			System.out.println("Obrigado por investir conosco! :) ");
+			System.out.println("Seu dinheiro valera: R$ " + df.format((valorInvestido*5.75)) + " em agosto de 2022  (melhor que a nubank hein rs)");
 		}
-	public static void menu(Cliente cliente1) {
-		Scanner entrada = new Scanner(System.in);
-		int verifica =0;
-		do{
-			System.out.println("Digite a opcao desejada");
-			System.out.println("1 --> Saque");
-			System.out.println("2 --> Saldo");
-			System.out.println("3 --> Deposito");
-			System.out.println("4 --> Emprestimo");
-			System.out.println("5 --> GenInvest");
-			verifica = entrada.nextInt();
-			System.out.println();
-			
-			switch(verifica) {
-			case 1:
-				cliente1.sacar(cliente1.getSaldo());
-				break;
-			case 2:
-				cliente1.mostraSaldo();
-			    break;
-			case 3: 
-				cliente1.depositar(cliente1.getSaldo());
-		  	    break;
-			case 4:
-				cliente1.emprestimo(cliente1.getRenda());
-				break;
-			case 5:
-				cliente1.genInvest(cliente1.getSaldo());
-			default:
-	            System.out.println("Opcao invalida ");         // REVISAR ESSA OPCAO AQUI
-	            break;
-			}
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			for(int i=0;i<60;i++) {System.out.println(" ");}
-			}while(verifica != 0);
-		entrada.close();
+		
+		
 	}
 	
 	
 	
-	
-	public static void login(String cpf, String senha, String cpfDigitado, String senhaDigitada) {
-	
+	public static void login(String cpf, String senha) {
+		Scanner entrada = new Scanner(System.in);
+		String cpfDigitado = " ";    // Para o eu esquecido, cpfDigitado e senha NAO EH IGUAL AO CPFDIG E SENHA DO MAIN
+		String senhaDigitada = " ";
+		System.out.println("Digite o seu CPF, por favor.");
+		cpfDigitado = entrada.nextLine();
+		System.out.println("Digite sua senha , por favor.");
+		senhaDigitada = entrada.nextLine();
 		if(cpfDigitado.equals(cpf) || senhaDigitada.equals(senha)) {
-			 System.out.println("Cpf e senhas corretos iniciando Menu principal...");
+			 System.out.println("Cpf e senhas corretos iniciando FuncoesdoBanco principal...");
 		}
 		else {
 			System.out.println("cpf ou senha invalida");
 		}
 	}
-	public double getRenda() {
-		return renda;
-	}
-	public void setRenda(double renda) {
-		this.renda = renda;
-	}
-	public double getValorInvestido() {
-		return valorInvestido;
-	}
-	public void setValorInvestido(double valorInvestido) {
-		this.valorInvestido = valorInvestido;
-	}
+
 }
