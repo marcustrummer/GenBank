@@ -75,7 +75,7 @@ public class GenMain extends Cliente{
 		valorDepositado = entrada.nextDouble();
 		cliente1.setSaldo(valorDepositado);
 
-		} while( valorDepositado < 0 && valorDepositado > 10000);
+		} while( valorDepositado < 0 || valorDepositado > 10000);      // Iae
 		for(int i=0; i<30; i++) {System.out.println("");}
 		
 		System.out.println("Falta pouco...");

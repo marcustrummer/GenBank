@@ -146,9 +146,9 @@ public class Cliente{
 	
 	public void emprestimo(double renda) {
 		double emprestimoDisponivel =0;
-		emprestimoDisponivel = renda * 0.6;
+		emprestimoDisponivel = renda * 0.6;            // 60 % da renda do cliente
 		
-		double taxaGen = 1.1788;
+		double taxaGen = 1.1788;      //17.88%
 		double valorSolicitado=0;
 		int resposta = 0;
 		
@@ -193,13 +193,13 @@ public class Cliente{
 	}
 	
 	protected void genInvest(double saldo) {
-		double investimento=5.76;
+		double investimento=1.0576;    //  5.76% CDI 
 		double valorAInvestir = 0;
 		System.out.println("============================================================");
 		System.out.println("||    Bem vindo ao Centro de Investimentos Generation     ||");
 		System.out.println("============================================================");
 		System.out.println("\n");
-		System.out.println("Aqui seu saldo rende : " + investimento + "% do CDI ao ano.");
+		System.out.println("Aqui seu investimento rende : 5,76 % do CDI ao ano.");
 		
 		System.out.println("Quanto gostaria de investir?");
 		valorAInvestir = entrada.nextDouble();
@@ -209,7 +209,7 @@ public class Cliente{
 			this.saldo = saldo - valorAInvestir;
 			valorInvestido = valorAInvestir;
 			System.out.println("Obrigado por investir conosco! :) ");
-			System.out.println("Seu dinheiro vai render: R$ " + df.format((valorInvestido*5.75)) + " até agosto de 2022");
+			System.out.println("Seu dinheiro vai render: R$ " + df.format((valorAInvestir*investimento)) + " até agosto de 2022");
 		}
 		
 		
